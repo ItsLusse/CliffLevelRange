@@ -422,6 +422,7 @@ CliffLevelRange:SetScript("OnEvent", CliffLevelRange.OnEvent)
 function CliffLevelRange.slash(arg1)
 	if arg1 == nil or arg1 == "" then
         print("Version: "..CLIFFLEVELRANGE_VERSION_MSG)
+        print("Hold "..YELLOW.."'Alt'"..COLOREND.." to move List.")
         print("'/clr "..GREEN.."show"..COLOREND.."' - View your level ranged guildmates.")
     elseif arg1 == "show" then
         if CliffLevelRange.List:IsVisible() then
