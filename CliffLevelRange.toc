@@ -1,7 +1,7 @@
 ## Interface: 11200
 ## Title: |cffFF7D0ACliff|cffffff00Level|cff00ff00Range
 ## Author: Cliffholger
-## Version: 1.2
+## Version: 1.3
 ## Notes: AddOn that shows a list of guildies within your level range. By |cffFF7D0ACliffholger
 ## DefaultState: Enabled
 ## LoadOnDemand: 0

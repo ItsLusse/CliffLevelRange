@@ -160,6 +160,7 @@ function CliffLevelRange.List:Gui()
     self:RegisterForDrag("LeftButton")
     self:SetBackdrop(backdrop)
     self:SetBackdropColor(0, 0, 0, 1)
+    self:SetScale(CliffLevelRange_settings["scale"])
     self:SetScript("OnDragStart", CliffLevelRange.List.Drag.StartMoving)
     self:SetScript("OnDragStop", CliffLevelRange.List.Drag.StopMovingOrSizing)
 
@@ -384,11 +385,15 @@ function CliffLevelRange:system(msg)
     end
 end
 
-function CliffLevelRange_LoadPos()
+function CliffLevelRange_Default()
     if CliffLevelRange_settings and CliffLevelRange_settings.pos then
         local position = CliffLevelRange_settings.pos
         CliffLevelRange.List:SetPoint("TOPLEFT", UIParent, "TOPLEFT", position.x, position.y)
     end
+
+    if CliffLevelRange_settings["scale"] == nil then
+		CliffLevelRange_settings["scale"] = 1
+	end
 end
 
 CliffLevelRange:SetScript("OnUpdate", CliffLevelRange.Update)
@@ -407,8 +412,8 @@ function CliffLevelRange:OnEvent()
         IsWithinRange()
 
     elseif event == "PLAYER_LOGIN" then
+        CliffLevelRange_Default()
         CliffLevelRange.List:Gui()
-        CliffLevelRange_LoadPos()
 
     elseif event == "PLAYER_LEVEL_UP" then
         local minLevel = math.max(UnitLevel("player") - 5, 1)
@@ -425,12 +430,17 @@ function CliffLevelRange.slash(arg1)
         print("Version: "..CLIFFLEVELRANGE_VERSION_MSG)
         print("Hold "..YELLOW.."'Alt'"..COLOREND.." to move List.")
         print("'/clr "..GREEN.."show"..COLOREND.."' - View your level ranged guildmates.")
+        print("'/clr "..LIGHTBLUE.."scale"..COLOREND.."' - Scale the list.")
     elseif arg1 == "show" then
         if CliffLevelRange.List:IsVisible() then
             CliffLevelRange.List:Hide()
         else
             CliffLevelRange.List:Show()
         end
+    elseif string.sub(arg1, 1, 5) == "scale" then
+        local size = string.sub(arg1, 7)
+        CliffLevelRange_settings["scale"] = size
+		CliffLevelRange.List:SetScale(CliffLevelRange_settings["scale"])
     else
         print("Unknown command. Use '/clr' for help.")
     end
