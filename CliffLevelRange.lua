@@ -223,19 +223,19 @@ function CliffLevelRange.UpdateScrollFrame()
             existingButton:SetPoint("TOP", 0, -yOffset)
 
             if currentLevel ~= level or currentZone ~= zone then
-                existingButton.charText:SetText(CliffLevelRange:GetLevelDiffColor(level)..level..COLOREND.." - "..CliffLevelRange:GetClassColorForName(class)..name)
-                existingButton.zoneText:SetText(LIGHTYELLOW..zone)
+                existingButton.charText:SetText(CliffLevelRange:GetClassColorForName(class)..name)
+                existingButton.zoneText:SetText(LIGHTYELLOW.."Level "..CliffLevelRange:GetLevelDiffColor(level)..level..COLOREND.."\n"..LIGHTYELLOW..zone)
                 existingButton.level = level
                 existingButton.zone = zone
             end
 
-            yOffset = yOffset + 23
+            yOffset = yOffset + 32
 
             existingButtons[name] = nil
         else
             local memberButton = CreateFrame("Button", nil, CliffLevelRange.List.child)
             memberButton:SetWidth(CliffLevelRange.List:GetWidth() - 35)
-            memberButton:SetHeight(23)
+            memberButton:SetHeight(32)
             memberButton:SetPoint("TOP", 0, -yOffset)
             memberButton:SetHighlightTexture("Interface\\Buttons\\UI-Listbox-Highlight")
             memberButton.name = name
@@ -274,10 +274,11 @@ function CliffLevelRange.UpdateScrollFrame()
             zoneText:SetFont("Fonts\\FRIZQT__.TTF", 12)
             zoneText:SetTextColor(1, 1, 1, 1)
             zoneText:SetShadowOffset(2, -2)
+            zoneText:SetJustifyH("RIGHT")
             memberButton.zoneText = zoneText 
 
-            memberButton.charText:SetText(CliffLevelRange:GetLevelDiffColor(level)..level..COLOREND.." - "..CliffLevelRange:GetClassColorForName(class)..name)
-            memberButton.zoneText:SetText(LIGHTYELLOW..zone)
+            memberButton.charText:SetText(CliffLevelRange:GetClassColorForName(class)..name)
+            memberButton.zoneText:SetText(LIGHTYELLOW.."Level "..CliffLevelRange:GetLevelDiffColor(level)..level..COLOREND.."\n"..LIGHTYELLOW..zone)
 
             memberButton:Show()
 
@@ -302,7 +303,7 @@ function CliffLevelRange.UpdateMemberCount()
     end
 
     CliffLevelRange.List.total:SetText("["..GREEN..memberCount..COLOREND.."]")
-    CliffLevelRange.List.child:SetHeight(memberCount * 23)
+    CliffLevelRange.List.child:SetHeight(memberCount * 32)
 end
 
 local guildMemberNames = {}
